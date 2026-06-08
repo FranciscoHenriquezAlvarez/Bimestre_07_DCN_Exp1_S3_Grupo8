@@ -1,0 +1,21 @@
+services:
+  cloudnativeapp:
+    image: ${IMAGE_NAME}:${IMAGE_TAG:-latest}
+    container_name: ${CONTAINER_NAME:-cloudnativeapp}
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SERVER_PORT: ${SERVER_PORT:-8080}
+      AWS_REGION: ${AWS_REGION}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+      AWS_S3_BUCKET_NAME: ${AWS_S3_BUCKET_NAME}
+      GUIAS_EFS_PATH: ${GUIAS_EFS_PATH:-/app/efs/guias}
+    volumes:
+      - /home/ec2-user/wallets/Wallet_cloudnativeapp:/app/wallet:ro
+      - /mnt/efs:/app/efs
